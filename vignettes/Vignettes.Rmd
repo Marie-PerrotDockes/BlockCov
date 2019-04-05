@@ -19,14 +19,14 @@ set.seed(516)
 
 # Installation 
 
-```{r}
+```{r, eval =FALSE}
 devtools::install_github("Marie-PerrotDockes/BlockCov")
 ```
 
 
 # Introduction
 
-This package implements the algorithm proposed by Perrot-Dockès and Lévy-Leduc in @blc. For further details we refer the reader to this paper.
+This package implements the algorithm proposed  in @blc. For further details we refer the reader to this paper.
 We shall consider the following framework. Let  $\boldsymbol{E}_1, \boldsymbol{E}_2,\cdots,\boldsymbol{E}_n$, $n$ zero-mean i.i.d. $q$-dimensional 
 random vectors having a covariance matrix 
 $\boldsymbol{\Sigma}$ such that the number $q$ of its rows and columns is much larger than $n$. 

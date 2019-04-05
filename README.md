@@ -6,8 +6,7 @@ Installation
 Introduction
 ============
 
-This package implements the algorithm proposed by Perrot-Dockès and
-Lévy-Leduc in Perrot-Dockès, Lévy-Leduc, and Rajjou (2019). For further
+This package implements the algorithm proposed in Perrot-Dockès, Lévy-Leduc, and Rajjou (2019). For further
 details we refer the reader to this paper. We shall consider the
 following framework. Let
 **E**<sub>1</sub>, **E**<sub>2</sub>, ⋯, **E**<sub>*n*</sub>, *n*

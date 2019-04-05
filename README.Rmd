@@ -19,7 +19,7 @@ set.seed(516)
 
 # Installation 
 
-```{r}
+```{r, , eval =FALSE}
 devtools::install_github("Marie-PerrotDockes/BlockCov")
 ```
 
