@@ -17,6 +17,7 @@ of **Σ** and of the square root of its inverse, in the particular case
 where **Σ** is assumed to have a block structure without limiting
 ourselves to diagonal blocks. More precisely, in this paper, we shall
 assume that
+**Σ**=**ZZ**′+**D**,
 where **Z** is a *q* × *k* sparse matrix with *k* ≪ *q*, **Z**′ denotes
 the transpose of the matrix **Z** and **D** is a diagonal matrix such
 that the diagonal terms of **Σ** are equal to one.
