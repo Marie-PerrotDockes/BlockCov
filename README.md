@@ -243,7 +243,7 @@ of the columns of the original matrix **S**. The Frobenius norm of the
 error is equal to 12.4.
 
 In this situation **Ŝ**<sup>−1/2</sup> is still available. The matrix
-**Ŝ**<sup>−1/2</sup>**S****Ŝ**<sup>−1/2</sup>, which is displayed in
+**Ŝ**<sup>−1/2</sup> **S** **Ŝ**<sup>−1/2</sup>, which is displayed in
 Figure , should be close to the identity matrix:
 
     Matrix::image(res_samp$S_inv_12 %*% Sigma_samp %*%res_samp$S_inv_12)
@@ -251,7 +251,7 @@ Figure , should be close to the identity matrix:
 ![](README_files/figure-markdown_strict/fig8-1.png)
 
 The associated Frobenius norm
-||**Ŝ**<sup>−1/2</sup>**S****Ŝ**<sup>−1/2</sup> − Id<sub>*q*</sub>||=
+||**Ŝ**<sup>−1/2</sup> **S** **Ŝ**<sup>−1/2</sup> − Id<sub>*q*</sub>||=
 7.8.
 
 All the values of the Frobenius norms are quite close meaning that our

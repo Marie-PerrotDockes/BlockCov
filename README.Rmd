@@ -217,14 +217,14 @@ Once again, our strategy does not seem to be altered by the permutation of the c
 The Frobenius norm of the error is equal to `r round(norm(as.matrix(Sigma_samp-res_samp$Sigma_est), 'F'), 1)`.
 
 In this situation $\boldsymbol{Ŝ}^{-1/2}$ is still available. The matrix
-$\boldsymbol{Ŝ}^{-1/2}\boldsymbol{S}\boldsymbol{Ŝ}^{-1/2}$, which is displayed in Figure \ref{fig:fig8},
+$\boldsymbol{Ŝ}^{-1/2}\;\boldsymbol{S}\;\boldsymbol{Ŝ}^{-1/2}$, which is displayed in Figure \ref{fig:fig8},
 should be close to the identity matrix: 
 
 ```{r fig8, fig.cap="\\label{fig:fig8}",fig.width=3.5,fig.height=3.5}
 Matrix::image(res_samp$S_inv_12 %*% Sigma_samp %*%res_samp$S_inv_12)
 ```
 
-The associated Frobenius norm $||\boldsymbol{Ŝ}^{-1/2}\boldsymbol{S}\boldsymbol{Ŝ}^{-1/2}-\textrm{Id}_q||=$ 
+The associated Frobenius norm $||\boldsymbol{Ŝ}^{-1/2}\;\boldsymbol{S}\;\boldsymbol{Ŝ}^{-1/2}-\textrm{Id}_q||=$ 
 `r round(norm(as.matrix(res_samp$S_inv_12%*%Sigma_samp%*%t(res_samp$S_inv_12)- diag(1,q))),1)`.
 
 
