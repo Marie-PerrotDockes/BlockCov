@@ -1,13 +1,13 @@
 ---
 title: "BlockCov package"
 author: "Marie Perrot-Dockès, Céline Lévy-Leduc"
-date: "27 juin 2018"
+date: "9 avril 2019"
 vignette: >
   %\VignetteEngine{knitr::knitr}
   %\VignetteIndexEntry{BlockCov package}
   %\usepackage[UTF-8]{inputenc}
 output:
-  md_document: default
+  pdf_document: default
 bibliography: inst/REFERENCES.bib
 ---
 
@@ -26,11 +26,11 @@ devtools::install_github("Marie-PerrotDockes/BlockCov")
 
 # Introduction
 
-This package implements the algorithm proposed by Perrot-Dockès and Lévy-Leduc in @blc. For further details we refer the reader to this paper.
+This package implements the algorithm proposed by @blc. For further details we refer the reader to this paper.
 We shall consider the following framework. Let  $\boldsymbol{E}_1, \boldsymbol{E}_2,\cdots,\boldsymbol{E}_n$, $n$ zero-mean i.i.d. $q$-dimensional 
 random vectors having a covariance matrix 
 $\boldsymbol{\Sigma}$ such that the number $q$ of its rows and columns is much larger than $n$. 
-The goal of the package is to propose a new estimator of $\boldsymbol{\Sigma}$ and of the square root of its inverse, in the particular case 
+The goal of the package is to propose a new estimator of $\boldsymbol{\Sigma}$ and of the square root of its inverse in the particular case 
 where $\boldsymbol{\Sigma}$ is assumed to have a block structure without limiting ourselves to diagonal blocks.
 More precisely, in this paper, we shall assume that
 \begin{equation}\label{eq:Sigma}
@@ -72,9 +72,9 @@ E <- matrix(rnorm(n * q), ncol = q) %*% chol(as.matrix(Sigma))
 
 #  Estimation of $\boldsymbol{\Sigma}$ (without estimating and $\boldsymbol{\Sigma}^{-1/2}$)
 
-## In the case where the parameters are known
+## Estimation of $\boldsymbol{\Sigma}$ when the parameters are known
 
-In order to get an estimation of $\boldsymbol{\Sigma}$ the function \verb|Sigma_estimation| was applied. Since the data set was simulated, the rank of $\boldsymbol{P}$, the sub-matrix of $\boldsymbol{\Sigma}$, and its number of non null values are known. 
+In order to get an estimator of $\boldsymbol{\Sigma}$ the function \verb|Sigma_estimation| was applied. Since the data set was simulated, the rank of $\boldsymbol{P}$, the sub-matrix of $\boldsymbol{\Sigma}$, and its number of non null values are known. 
 
 ```{r}
 k <- 5
@@ -99,79 +99,72 @@ Matrix::image(Matrix::Matrix(cor(E)))
 
 The Frobenius norm $\|\boldsymbol{\Sigma}-\widehat{\boldsymbol{\Sigma}}_{\textrm{emp}}\|$ is equal to `r round(norm(as.matrix(Sigma-cor(E)), 'F'), 1)`, where $\widehat{\boldsymbol{\Sigma}}_{\textrm{emp}}$ denotes the sample correlation matrix.
 
-## In the case were the parameters are unknown
+## Estimation of $\boldsymbol{\Sigma}$ when the parameters are unknown
 
 In practice, the number of non null values and the rank of $\boldsymbol{P}$ are unknown. 
-These parameters can be both estimated using the \verb|Sigma_estimation|.
+These parameters can be both estimated using the function \verb|Sigma_estimation|.
 
-For choosing the rank of $\boldsymbol{P}$,  two startegy are available, (they are compared in  @blc): 
+For choosing the rank of $\boldsymbol{P}$,  two strategies are available in the package and compared in  @blc: 
 
-  * The first strategy is the \textsf{Cattell} criterion based on the Cattell's scree plot described in @cattell1966, in practice it is done by setting \verb|method_k = "Cattell"| in                \verb|Sigma_estimation|function.
-  * The second strategy is the \textsf{PA} permutation method proposed by @Horn1965,  in practice it is done by setting \verb|method_k = "PA"| in  \verb|Sigma_estimation|function.
+  * The first strategy is the \textsf{Cattell} criterion based on the Cattell's scree plot described in @cattell1966. In the package, it can be used by setting \verb|method_k = "Cattell"| in the                \verb|Sigma_estimation| function.
+  * The second strategy is the \textsf{PA} permutation method proposed by @Horn1965. In the package, it can be used by setting \verb|method_k = "PA"| in  the \verb|Sigma_estimation| function.
 
 
+To choose the number of non null values two methodologies are also available in the package and compared in  @blc: 
 
-To choose the number of non null value two methodologies are also available (they are compared in  @blc): 
+  * The \textsf{Elbow} method described in @blc. In the package, it can be used by setting \verb|method_0 = "Elbow"| in  \verb|Sigma_estimation| function and
+  * the \textsf{BL} approach proposed in @bickel2008 based on cross-validation. In the package, it can be used by setting \verb|method_0 = "BL"| in  the \verb|Sigma_estimation| function.
 
-  * The \textsf{Elbow} method described in  @blc (done by setting \verb|method_0 = "Elbow"| in  \verb|Sigma_estimation|function) and
-  * the \textsf{BL} approach proposed in @bickel2008 based on cross-validation (done by setting \verb|method_0 = "BL"| in  \verb|Sigma_estimation|function).
-\end{itemize}
 
-For exemple estimating $\boldsymbol{\Sigma}$ using  \textsf{Cattell} criterion to get the rank of  $\boldsymbol{P}$ and  \textsf{Elbow} method to get the number of non null values can be done using \verb|Sigma_estimation| function as follows:
+For example, an estimator of $\boldsymbol{\Sigma}$ using the \textsf{Cattell} criterion and the \textsf{Elbow} method can be obtained by using the \verb|Sigma_estimation| function as follows:
 
-```{r}
-system.time(res <-Sigma_estimation(E, method_k = "Cattell", method_0 = "Elbow"))
+```{r,warning=FALSE}
+res <-Sigma_estimation(E, method_k = "Cattell", method_0 = "Elbow")
 ```
-It has to be noticed that "Cattell" and "Elbow" are the default value for \verb|method_k| and \verb|method_0| respectively. Hence, the same result can be obtain using : 
+It has to be noticed that "Cattell" and "Elbow" are the default value for \verb|method_k| and \verb|method_0| respectively. Hence, the same result can be obtain by using : 
 
 ```{r, eval = FALSE}
 res <-Sigma_estimation(E)
 ```
 
-The corresponding estimator of $\boldsymbol{\Sigma}$ are displayed in Figure \ref{fig:fig3}.
+The corresponding estimator of $\boldsymbol{\Sigma}$ is displayed in Figure \ref{fig:fig3}.
 The estimated rank and the estimated number of non null values can be obtained by \verb|res$k| and \verb|res$nb_nn0|, respectively.
-Here it selects a rank equal to `r res$k`  and `r res$nb_nn0` non null values. Note that the true values of these parameters are `r res_known$k` and `r res_known$nb_nn0`.
+Here, the estimated rank is equal to `r res$k`  and the estimated number of non null values is `r res$nb_nn0`. Note that the true values of these parameters are `r res_known$k` and `r res_known$nb_nn0`.
 
-One can also estimate  $\boldsymbol{\Sigma}$ using  \textsf{PA} criterion to get the rank of  $\boldsymbol{P}$ and  \textsf{BL} method to get the number of non null values, it can be done using \verb|Sigma_estimation|  function as follows:
+An estimator of $\boldsymbol{\Sigma}$ using  the \textsf{PA} criterion and  the \textsf{BL} method  can be obtained by using the \verb|Sigma_estimation| function as follows:
 
 ```{r}
-system.time( res_pabl <- Sigma_estimation(E, method_k = "PA", method_0 = "BL"))
+res_pabl <- Sigma_estimation(E, method_k = "PA", method_0 = "BL")
 ```
-The corresponding estimator of $\boldsymbol{\Sigma}$ are displayed in Figure \ref{fig:fig3pabl}, it selects a rank equal to `r res_pabl$k`  and `r res_pabl$nb_nn0` non null values
+The corresponding estimator of $\boldsymbol{\Sigma}$ is displayed in Figure \ref{fig:fig3pabl}.
+Here, the estimated rank is equal to `r res_pabl$k`  and the estimated number of non null values is 
+`r res_pabl$nb_nn0`.
 
-This second options is a bit slower (specially for some large values of $q$) but can be more accurate when the number of samples is large enough (see @blc for details on the time and the accuracy of the differents startegy).
+This second approach is a little bit slower than the first one especially for large values of $q$ but can be more 
+accurate when the number of samples is large enough, see @blc for further details on the numerical and statistical performance of the different strategies.
 
 
 ```{r fig3, fig.cap="\\label{fig:fig3}",fig.width=3.5,fig.height=3.5}
 Matrix::image(res$Sigma_est)
 ```
 
-```{r fig3pabl, fig.cap="\\label{fig:fig3pabl",fig.width=3.5,fig.height=3.5}
+```{r fig3pabl, fig.cap="\\label{fig:fig3pabl}",fig.width=3.5,fig.height=3.5}
 Matrix::image(res_pabl$Sigma_est)
 ```
 
 We can see from this figure that the estimation of $\boldsymbol{\Sigma}$ does not seem to be altered by 
-having to estimate the number of non null values and the rank of the matrix. The Frobenius norm $\|\boldsymbol{\Sigma}-\widehat{\boldsymbol{\Sigma}}\|$ is equal to `r round(norm(as.matrix(Sigma-res$Sigma_est), 'F'), 1)` for the first estimator and to `r round(norm(as.matrix(Sigma-res_pabl$Sigma_est), 'F'), 1)` for the second one .
+having to estimate the number of non null values and the rank of the matrix. The Frobenius norm $\|\boldsymbol{\Sigma}-\widehat{\boldsymbol{\Sigma}}\|$ is equal to `r round(norm(as.matrix(Sigma-res$Sigma_est), 'F'), 1)` for the first estimator and to `r round(norm(as.matrix(Sigma-res_pabl$Sigma_est), 'F'), 1)` for the second one.
 
-# An estimation of $\boldsymbol{\Sigma}^{-1/2}$ (with an estimation of  $\boldsymbol{\Sigma}$)
+# Estimator of $\boldsymbol{\Sigma}^{-1/2}$ obtained from an estimator of $\boldsymbol{\Sigma}$
 
-If one is also interest in $\boldsymbol{\Sigma}^{-1/2}$ it can also be obtained using \verb|Sigma_estimation| by setting the arguments \verb|res$S_inv_12| to true as follows : 
+An estimator of $\boldsymbol{\Sigma}^{-1/2}$ can be obtained using the \verb|Sigma_estimation| function by setting the arguments \verb|res$S_inv_12| to true as follows: 
 
 ```{r}
 res_both <- Sigma_estimation(E, method_k = "Cattell", method_0 = "Elbow", inv_12 = TRUE)
 ```
 
-This contains both the estimator of $\boldsymbol{\Sigma}$ and $\boldsymbol{\Sigma}^{-1/2}$.
+An estimator of $\boldsymbol{\Sigma}$ is obtained with \verb|res_both$Sigma_est| and an estimator of $\boldsymbol{\Sigma}^{-1/2}$ is obtained with \verb|res_both$S_inv_12|.
 It can be used to remove the dependence that may exist between the columns of $\boldsymbol{E}$.
-To achieve this goal $\widehat{\boldsymbol{\Sigma}}^{-1/2}\boldsymbol{\Sigma}\widehat{\boldsymbol{\Sigma}}^{-1/2}$, which is displayed in Figure \ref{fig:fig3bis},
-should be close to the identity matrix: 
-
-```{r fig3bis, fig.cap="\\label{fig:fig3bis}",fig.width=3.5,fig.height=3.5}
-Matrix::image(res_both$S_inv_12 %*% Sigma %*% res_both$S_inv_12)
-```
-
-The associated Frobenius norm $||\widehat{\boldsymbol{\Sigma}}^{-1/2}\boldsymbol{\Sigma}\widehat{\boldsymbol{\Sigma}}^{-1/2}-\textrm{Id}_q||=$ 
-`r round(norm(as.matrix(res_both$S_inv_12%*%Sigma%*%res_both$S_inv_12- diag(1,q))),1)`.
 
 
 #  Estimation of $\boldsymbol{\Sigma}$ and $\boldsymbol{\Sigma}^{-1/2}$ when the block structure is latent
