@@ -1,6 +1,5 @@
 ---
 title: "BlockCov package"
-markdown: kramdown
 author: "Marie Perrot-Dockès, Céline Lévy-Leduc"
 date: "9 avril 2019"
 vignette: >
@@ -52,7 +51,7 @@ to be permuted according to an unknown permutation in order to make the block st
 # Simulation of $\boldsymbol{\Sigma}$ having a block structure
 
 In order to generate a matrix $\boldsymbol{\Sigma}$ having a block structure with extra-diagonal blocks and $q=100$,
-we can use the function \verb|Simu_Sigma| as follows:
+we can use the function `|Simu_Sigma|` as follows:
 
 ```{r}
 q <- 100
@@ -85,7 +84,7 @@ nb_nn0 <- sum(Sigma[upper.tri(Sigma, diag = FALSE)] != 0)
 res_known <-  Sigma_estimation(E, k = k, nb_nn0 = nb_nn0)
 ```
 
-Our estimator $$hat{\boldsymbol{\Sigma}}$$ of $\boldsymbol{\Sigma}$ is given by \verb|res_known$Sigma_est|.
+Our estimator $$\widehat{\boldsymbol{\Sigma}}$$ of $\boldsymbol{\Sigma}$ is given by \verb|res_known$Sigma_est|.
 It is displayed in Figure \ref{fig:fig1} and is obtained by using:
 
 ```{r fig1, fig.cap="\\label{fig:fig1}",fig.width=3.5,fig.height=3.5}
