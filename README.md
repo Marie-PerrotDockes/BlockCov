@@ -6,7 +6,8 @@ Installation
 Introduction
 ============
 
-This package implements the algorithm proposed in Perrot-Dockès, Lévy-Leduc, and Rajjou (2019). For further
+This package implements the algorithm proposed by Perrot-Dockès and
+Lévy-Leduc in Perrot-Dockès, Lévy-Leduc, and Rajjou (2019). For further
 details we refer the reader to this paper. We shall consider the
 following framework. Let
 **E**<sub>1</sub>, **E**<sub>2</sub>, ⋯, **E**<sub>*n*</sub>, *n*
@@ -17,9 +18,9 @@ of **Σ** and of the square root of its inverse, in the particular case
 where **Σ** is assumed to have a block structure without limiting
 ourselves to diagonal blocks. More precisely, in this paper, we shall
 assume that
-
-**Σ**=**ZZ**′+**D**,
-
+\begin{equation}\label{eq:Sigma}
+\boldsymbol{\Sigma}=\boldsymbol{Z}\boldsymbol{Z}'+\boldsymbol{D},
+\end{equation}
 where **Z** is a *q* × *k* sparse matrix with *k* ≪ *q*, **Z**′ denotes
 the transpose of the matrix **Z** and **D** is a diagonal matrix such
 that the diagonal terms of **Σ** are equal to one.
@@ -112,8 +113,8 @@ compared in Perrot-Dockès, Lévy-Leduc, and Rajjou (2019)):
 -   The first strategy is the criterion based on the Cattell's scree
     plot described in Cattell (1966), in practice it is done by setting
     in function.
--   The second strategy is the permutation method proposed by
-    Horn (1965), in practice it is done by setting in function.
+-   The second strategy is the permutation method proposed by Horn
+    (1965), in practice it is done by setting in function.
 
 To choose the number of non null value two methodologies are also
 available (they are compared in Perrot-Dockès, Lévy-Leduc, and Rajjou
@@ -130,8 +131,26 @@ function as follows:
 
     system.time(res <-Sigma_estimation(E, method_k = "Cattell", method_0 = "Elbow"))
 
+    ## Warning: `as_dictionary()` is soft-deprecated as of rlang 0.3.0.
+    ## Please use `as_data_pronoun()` instead
+    ## This warning is displayed once per session.
+
+    ## Warning: `new_overscope()` is soft-deprecated as of rlang 0.2.0.
+    ## Please use `new_data_mask()` instead
+    ## This warning is displayed once per session.
+
+    ## Warning: The `parent` argument of `new_data_mask()` is deprecated.
+    ## The parent of the data mask is determined from either:
+    ## 
+    ##   * The `env` argument of `eval_tidy()`
+    ##   * Quosure environments when applicable
+    ## This warning is displayed once per session.
+
+    ## Warning: `overscope_clean()` is soft-deprecated as of rlang 0.2.0.
+    ## This warning is displayed once per session.
+
     ##    user  system elapsed 
-    ##   0.488   0.000   0.488
+    ##   0.738   0.000   0.739
 
 It has to be noticed that "Cattell" and "Elbow" are the default value
 for and respectively. Hence, the same result can be obtain using :
@@ -151,7 +170,7 @@ function as follows:
     system.time( res_pabl <- Sigma_estimation(E, method_k = "PA", method_0 = "BL"))
 
     ##    user  system elapsed 
-    ##   0.744   0.000   0.744
+    ##   0.783   0.000   0.783
 
 The corresponding estimator of **Σ** are displayed in Figure , it
 selects a rank equal to 5 and 1146 non null values
