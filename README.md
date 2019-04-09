@@ -6,22 +6,20 @@ Installation
 Introduction
 ============
 
-This package implements the algorithm proposed by Perrot-Dockès and
-Lévy-Leduc in Perrot-Dockès, Lévy-Leduc, and Rajjou (2019). For further
-details we refer the reader to this paper. We shall consider the
-following framework. Let
+This package implements the algorithm proposed by Perrot-Dockès,
+Lévy-Leduc, and Rajjou (2019). For further details we refer the reader
+to this paper. We shall consider the following framework. Let
 **E**<sub>1</sub>, **E**<sub>2</sub>, ⋯, **E**<sub>*n*</sub>, *n*
 zero-mean i.i.d. *q*-dimensional random vectors having a covariance
 matrix **Σ** such that the number *q* of its rows and columns is much
 larger than *n*. The goal of the package is to propose a new estimator
-of **Σ** and of the square root of its inverse, in the particular case
+of **Σ** and of the square root of its inverse in the particular case
 where **Σ** is assumed to have a block structure without limiting
 ourselves to diagonal blocks. More precisely, in this paper, we shall
-assume that
-\begin{equation}\label{eq:Sigma}
-\boldsymbol{\Sigma}=\boldsymbol{Z}\boldsymbol{Z}'+\boldsymbol{D},
-\end{equation}
-where **Z** is a *q* × *k* sparse matrix with *k* ≪ *q*, **Z**′ denotes
+assume that ((<span class="citeproc-not-found"
+data-reference-id="eq:Sigma">**???**</span>))
+**Σ** = **Z****Z**′+**D**,
+ where **Z** is a *q* × *k* sparse matrix with *k* ≪ *q*, **Z**′ denotes
 the transpose of the matrix **Z** and **D** is a diagonal matrix such
 that the diagonal terms of **Σ** are equal to one.
 
@@ -66,10 +64,10 @@ Gaussian random vectors having a covariance matrix equal to **Σ** and
 Estimation of **Σ** (without estimating and **Σ**<sup>−1/2</sup>)
 =================================================================
 
-In the case where the parameters are known
-------------------------------------------
+Estimation of **Σ** when the parameters are known
+-------------------------------------------------
 
-In order to get an estimation of **Σ** the function was applied. Since
+In order to get an estimator of **Σ** the function was applied. Since
 the data set was simulated, the rank of **P**, the sub-matrix of **Σ**,
 and its number of non null values are known.
 
@@ -101,84 +99,63 @@ is equal to 14.5, where
 $\\widehat{\\boldsymbol{\\Sigma}}\_{\\textrm{emp}}$ denotes the sample
 correlation matrix.
 
-In the case were the parameters are unknown
--------------------------------------------
+Estimation of **Σ** when the parameters are unknown
+---------------------------------------------------
 
 In practice, the number of non null values and the rank of **P** are
-unknown. These parameters can be both estimated using the .
+unknown. These parameters can be both estimated using the function .
 
-For choosing the rank of **P**, two startegy are available, (they are
-compared in Perrot-Dockès, Lévy-Leduc, and Rajjou (2019)):
+For choosing the rank of **P**, two strategies are available in the
+package and compared in Perrot-Dockès, Lévy-Leduc, and Rajjou (2019):
 
 -   The first strategy is the criterion based on the Cattell's scree
-    plot described in Cattell (1966), in practice it is done by setting
-    in function.
--   The second strategy is the permutation method proposed by Horn
-    (1965), in practice it is done by setting in function.
+    plot described in Cattell (1966). In the package, it can be used by
+    setting in the function.
+-   The second strategy is the permutation method proposed by
+    Horn (1965). In the package, it can be used by setting in the
+    function.
 
-To choose the number of non null value two methodologies are also
-available (they are compared in Perrot-Dockès, Lévy-Leduc, and Rajjou
-(2019)):
+To choose the number of non null values two methodologies are also
+available in the package and compared in Perrot-Dockès, Lévy-Leduc, and
+Rajjou (2019):
 
--   The method described in Perrot-Dockès, Lévy-Leduc, and Rajjou (2019)
-    (done by setting in function) and
+-   The method described in Perrot-Dockès, Lévy-Leduc, and
+    Rajjou (2019). In the package, it can be used by setting in function
+    and
 -   the approach proposed in Bickel and Levina (2008) based on
-    cross-validation (done by setting in function). \\end{itemize}
+    cross-validation. In the package, it can be used by setting in the
+    function.
 
-For exemple estimating **Σ** using criterion to get the rank of **P**
-and method to get the number of non null values can be done using
-function as follows:
+For example, an estimator of **Σ** using the criterion and the method
+can be obtained by using the function as follows:
 
-    system.time(res <-Sigma_estimation(E, method_k = "Cattell", method_0 = "Elbow"))
-
-    ## Warning: `as_dictionary()` is soft-deprecated as of rlang 0.3.0.
-    ## Please use `as_data_pronoun()` instead
-    ## This warning is displayed once per session.
-
-    ## Warning: `new_overscope()` is soft-deprecated as of rlang 0.2.0.
-    ## Please use `new_data_mask()` instead
-    ## This warning is displayed once per session.
-
-    ## Warning: The `parent` argument of `new_data_mask()` is deprecated.
-    ## The parent of the data mask is determined from either:
-    ## 
-    ##   * The `env` argument of `eval_tidy()`
-    ##   * Quosure environments when applicable
-    ## This warning is displayed once per session.
-
-    ## Warning: `overscope_clean()` is soft-deprecated as of rlang 0.2.0.
-    ## This warning is displayed once per session.
-
-    ##    user  system elapsed 
-    ##   0.738   0.000   0.739
+    res <-Sigma_estimation(E, method_k = "Cattell", method_0 = "Elbow")
 
 It has to be noticed that "Cattell" and "Elbow" are the default value
-for and respectively. Hence, the same result can be obtain using :
+for and respectively. Hence, the same result can be obtain by using :
 
     res <-Sigma_estimation(E)
 
-The corresponding estimator of **Σ** are displayed in Figure . The
+The corresponding estimator of **Σ** is displayed in Figure . The
 estimated rank and the estimated number of non null values can be
-obtained by and , respectively. Here it selects a rank equal to 5 and
-1155 non null values. Note that the true values of these parameters are
-5 and 1270.
+obtained by and , respectively. Here, the estimated rank is equal to 5
+and the estimated number of non null values is 1155. Note that the true
+values of these parameters are 5 and 1270.
 
-One can also estimate **Σ** using criterion to get the rank of **P** and
-method to get the number of non null values, it can be done using
-function as follows:
+An estimator of **Σ** using the criterion and the method can be obtained
+by using the function as follows:
 
-    system.time( res_pabl <- Sigma_estimation(E, method_k = "PA", method_0 = "BL"))
+    res_pabl <- Sigma_estimation(E, method_k = "PA", method_0 = "BL")
 
-    ##    user  system elapsed 
-    ##   0.783   0.000   0.783
+The corresponding estimator of **Σ** is displayed in Figure . Here, the
+estimated rank is equal to 5 and the estimated number of non null values
+is 1146.
 
-The corresponding estimator of **Σ** are displayed in Figure , it
-selects a rank equal to 5 and 1146 non null values
-
-This second options is a bit slower (specially for some large values of
-*q*) but can be more accurate when the number of samples is large enough
-(see Perrot-Dockès, Lévy-Leduc, and Rajjou (2019) for details on the
-time and the accuracy of the differents startegy).
+This second approach is a little bit slower than the first one
+especially for large values of *q* but can be more accurate when the
+number of samples is large enough, see Perrot-Dockès, Lévy-Leduc, and
+Rajjou (2019) for further details on the numerical and statistical
+performance of the different strategies.
 
     Matrix::image(res$Sigma_est)
 
@@ -186,35 +163,25 @@ time and the accuracy of the differents startegy).
 
     Matrix::image(res_pabl$Sigma_est)
 
-![\\label{fig:fig3pabl](README_files/figure-markdown_strict/fig3pabl-1.png)
+![](README_files/figure-markdown_strict/fig3pabl-1.png)
 
 We can see from this figure that the estimation of **Σ** does not seem
 to be altered by having to estimate the number of non null values and
 the rank of the matrix. The Frobenius norm
 $\\|\\boldsymbol{\\Sigma}-\\widehat{\\boldsymbol{\\Sigma}}\\|$ is equal
-to 7.1 for the first estimator and to 7.3 for the second one .
+to 7.1 for the first estimator and to 7.3 for the second one.
 
-An estimation of **Σ**<sup>−1/2</sup> (with an estimation of **Σ**)
-===================================================================
+Estimator of **Σ**<sup>−1/2</sup> obtained from an estimator of **Σ**
+=====================================================================
 
-If one is also interest in **Σ**<sup>−1/2</sup> it can also be obtained
-using by setting the arguments to true as follows :
+An estimator of **Σ**<sup>−1/2</sup> can be obtained using the function
+by setting the arguments to true as follows:
 
     res_both <- Sigma_estimation(E, method_k = "Cattell", method_0 = "Elbow", inv_12 = TRUE)
 
-This contains both the estimator of **Σ** and **Σ**<sup>−1/2</sup>. It
-can be used to remove the dependence that may exist between the columns
-of **E**. To achieve this goal
-$\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}\\boldsymbol{\\Sigma}\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}$,
-which is displayed in Figure , should be close to the identity matrix:
-
-    Matrix::image(res_both$S_inv_12 %*% Sigma %*% res_both$S_inv_12)
-
-![](README_files/figure-markdown_strict/fig3bis-1.png)
-
-The associated Frobenius norm
-$||\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}\\boldsymbol{\\Sigma}\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}-\\textrm{Id}\_q||=$
-4.3.
+An estimator of **Σ** is obtained with and an estimator of
+**Σ**<sup>−1/2</sup> is obtained with . It can be used to remove the
+dependence that may exist between the columns of **E**.
 
 Estimation of **Σ** and **Σ**<sup>−1/2</sup> when the block structure is latent
 ===============================================================================
@@ -304,6 +271,6 @@ Horn, John L. 1965. “A Rationale and Test for the Number of Factors in
 Factor Analysis.” *Psychometrika* 30 (2): 179–85.
 doi:[10.1007/BF02289447](https://doi.org/10.1007/BF02289447).
 
-Perrot-Dockès, Marie, Céline Lévy-Leduc, and Loic Rajjou. 2019.
-“Estimation of Large Block Covariance Matrices: Application to
-‘Multi-Omic’ Approaches to Study Seed Quality.”
+Perrot-Dockès, M., C. Lévy-Leduc, and L. Rajjou. 2019. “Estimation of
+Large Block Covariance Matrices: Application to ‘Multi-Omic’ Approaches
+to Study Seed Quality.”
