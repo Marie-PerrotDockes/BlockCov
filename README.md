@@ -16,15 +16,15 @@ larger than *n*. The goal of the package is to propose a new estimator
 of **Σ** and of the square root of its inverse in the particular case
 where **Σ** is assumed to have a block structure without limiting
 ourselves to diagonal blocks. More precisely, in this paper, we shall
-assume that ((<span class="citeproc-not-found"
-data-reference-id="eq:Sigma">**???**</span>))
-**Σ** = **Z****Z**′+**D**,
+assume that
+
+**Σ** = **Z** **Z**′+**D**,
  where **Z** is a *q* × *k* sparse matrix with *k* ≪ *q*, **Z**′ denotes
 the transpose of the matrix **Z** and **D** is a diagonal matrix such
 that the diagonal terms of **Σ** are equal to one.
 
 Our approach consists in providing a low rank matrix approximation of
-the **Z****Z**′ part of **Σ** and then in using a ℓ<sub>1</sub>
+the **Z** **Z**′ part of **Σ** and then in using a ℓ<sub>1</sub>
 regularization in order to obtain a sparse estimator of **Σ**. More
 precisely, since **Σ** is a correlation matrix, it is a symmetric matrix
 with ones on its diagonal, thus all the information is contained in its
@@ -75,16 +75,16 @@ and its number of non null values are known.
     nb_nn0 <- sum(Sigma[upper.tri(Sigma, diag = FALSE)] != 0)
     res_known <-  Sigma_estimation(E, k = k, nb_nn0 = nb_nn0)
 
-Our estimator $\\widehat{\\boldsymbol{\\Sigma}}$ of **Σ** is given by .
-It is displayed in Figure and is obtained by using:
+Our estimator $\\hat{\\boldsymbol{\\Sigma}}$ of **Σ** is given by . It
+is displayed in Figure and is obtained by using:
 
     Matrix::image(res_known$Sigma_est)
 
 ![](README_files/figure-markdown_strict/fig1-1.png)
 
 The Frobenius norm
-$\\|\\boldsymbol{\\Sigma}-\\widehat{\\boldsymbol{\\Sigma}}\\|$ is equal
-to 5.5.
+$\\|\\boldsymbol{\\Sigma}-\\hat{\\boldsymbol{\\Sigma}}\\|$ is equal to
+5.5.
 
 For comparison purpose, the sample correlation matrix is displayed in
 Figure .
@@ -94,10 +94,9 @@ Figure .
 ![](README_files/figure-markdown_strict/fig2-1.png)
 
 The Frobenius norm
-$\\|\\boldsymbol{\\Sigma}-\\widehat{\\boldsymbol{\\Sigma}}\_{\\textrm{emp}}\\|$
-is equal to 14.5, where
-$\\widehat{\\boldsymbol{\\Sigma}}\_{\\textrm{emp}}$ denotes the sample
-correlation matrix.
+$\\|\\boldsymbol{\\Sigma}-\\hat{\\boldsymbol{\\Sigma}}\_{\\textrm{emp}}\\|$
+is equal to 14.5, where $\\hat{\\boldsymbol{\\Sigma}}\_{\\textrm{emp}}$
+denotes the sample correlation matrix.
 
 Estimation of **Σ** when the parameters are unknown
 ---------------------------------------------------
@@ -168,8 +167,8 @@ performance of the different strategies.
 We can see from this figure that the estimation of **Σ** does not seem
 to be altered by having to estimate the number of non null values and
 the rank of the matrix. The Frobenius norm
-$\\|\\boldsymbol{\\Sigma}-\\widehat{\\boldsymbol{\\Sigma}}\\|$ is equal
-to 7.1 for the first estimator and to 7.3 for the second one.
+$\\|\\boldsymbol{\\Sigma}-\\hat{\\boldsymbol{\\Sigma}}\\|$ is equal to
+7.1 for the first estimator and to 7.3 for the second one.
 
 Estimator of **Σ**<sup>−1/2</sup> obtained from an estimator of **Σ**
 =====================================================================
@@ -238,9 +237,9 @@ Once again, our strategy does not seem to be altered by the permutation
 of the columns of the original matrix **Σ**. The Frobenius norm of the
 error is equal to 12.4.
 
-In this situation $\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}$ is still
+In this situation $\\hat{\\boldsymbol{\\Sigma}}^{-1/2}$ is still
 available. The matrix
-$\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}\\boldsymbol{\\Sigma}\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}$,
+$\\hat{\\boldsymbol{\\Sigma}}^{-1/2}\\boldsymbol{\\Sigma}\\hat{\\boldsymbol{\\Sigma}}^{-1/2}$,
 which is displayed in Figure , should be close to the identity matrix:
 
     Matrix::image(res_samp$S_inv_12 %*% Sigma_samp %*%res_samp$S_inv_12)
@@ -248,7 +247,7 @@ which is displayed in Figure , should be close to the identity matrix:
 ![](README_files/figure-markdown_strict/fig8-1.png)
 
 The associated Frobenius norm
-$||\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}\\boldsymbol{\\Sigma}\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}-\\textrm{Id}\_q||=$
+$||\\hat{\\boldsymbol{\\Sigma}}^{-1/2}\\boldsymbol{\\Sigma}\\hat{\\boldsymbol{\\Sigma}}^{-1/2}-\\textrm{Id}\_q||=$
 7.8.
 
 All the values of the Frobenius norms are quite close meaning that our

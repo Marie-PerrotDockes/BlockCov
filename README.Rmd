@@ -34,13 +34,14 @@ $\boldsymbol{\Sigma}$ such that the number $q$ of its rows and columns is much l
 The goal of the package is to propose a new estimator of $\boldsymbol{\Sigma}$ and of the square root of its inverse in the particular case 
 where $\boldsymbol{\Sigma}$ is assumed to have a block structure without limiting ourselves to diagonal blocks.
 More precisely, in this paper, we shall assume that
-(@eq:Sigma)$$
-\boldsymbol{\Sigma}=\boldsymbol{Z}\boldsymbol{Z}'+\boldsymbol{D},
+
+$$
+\boldsymbol{\Sigma}=\boldsymbol{Z}\;\boldsymbol{Z}'+\boldsymbol{D},
 $$
 where $\boldsymbol{Z}$ is a $q \times k$ sparse matrix with $k\ll q$, $\boldsymbol{Z}'$ denotes the transpose of the matrix $\boldsymbol{Z}$ and $\boldsymbol{D}$
 is a diagonal matrix such that the diagonal terms of $\boldsymbol{\Sigma}$ are equal to one.
 
-Our approach consists in providing a low rank matrix approximation of the $\boldsymbol{Z}\boldsymbol{Z}'$ part of
+Our approach consists in providing a low rank matrix approximation of the $\boldsymbol{Z}\;\boldsymbol{Z}'$ part of
 $\boldsymbol{\Sigma}$ and then in using a $\ell_1$ regularization in order to obtain a sparse estimator of $\boldsymbol{\Sigma}$.
 More precisely, since $\boldsymbol{\Sigma}$ is a correlation matrix, it is a symmetric matrix with ones on its diagonal, thus all the information is contained in its upper triangular part without its diagonal. If we know $\boldsymbol{P}$ the $(q-1)\times (q-1)$ symmetric matrix, which has for upper triangular part the upper triangular part of $\boldsymbol{\Sigma}$ without its diagonal, we know $\boldsymbol{\Sigma}$. The matrix $\boldsymbol{P}$ has the advantage to have a low rank. In the following, we propose to first estimate the block matrix $\boldsymbol{P}$. 
 
@@ -83,14 +84,14 @@ nb_nn0 <- sum(Sigma[upper.tri(Sigma, diag = FALSE)] != 0)
 res_known <-  Sigma_estimation(E, k = k, nb_nn0 = nb_nn0)
 ```
 
-Our estimator $\widehat{\boldsymbol{\Sigma}}$ of $\boldsymbol{\Sigma}$ is given by \verb|res_known$Sigma_est|.
+Our estimator $\hat{\boldsymbol{\Sigma}}$ of $\boldsymbol{\Sigma}$ is given by \verb|res_known$Sigma_est|.
 It is displayed in Figure \ref{fig:fig1} and is obtained by using:
 
 ```{r fig1, fig.cap="\\label{fig:fig1}",fig.width=3.5,fig.height=3.5}
 Matrix::image(res_known$Sigma_est)
 ```
 
-The Frobenius norm $\|\boldsymbol{\Sigma}-\widehat{\boldsymbol{\Sigma}}\|$ is equal to `r round(norm(as.matrix(Sigma-res_known$Sigma_est), 'F'), 1)`. 
+The Frobenius norm $\|\boldsymbol{\Sigma}-\hat{\boldsymbol{\Sigma}}\|$ is equal to `r round(norm(as.matrix(Sigma-res_known$Sigma_est), 'F'), 1)`. 
 
 For comparison purpose, the sample correlation matrix is displayed in Figure \ref{fig:fig2}.
 
@@ -98,7 +99,7 @@ For comparison purpose, the sample correlation matrix is displayed in Figure \re
 Matrix::image(Matrix::Matrix(cor(E)))
 ```
 
-The Frobenius norm $\|\boldsymbol{\Sigma}-\widehat{\boldsymbol{\Sigma}}_{\textrm{emp}}\|$ is equal to `r round(norm(as.matrix(Sigma-cor(E)), 'F'), 1)`, where $\widehat{\boldsymbol{\Sigma}}_{\textrm{emp}}$ denotes the sample correlation matrix.
+The Frobenius norm $\|\boldsymbol{\Sigma}-\hat{\boldsymbol{\Sigma}}_{\textrm{emp}}\|$ is equal to `r round(norm(as.matrix(Sigma-cor(E)), 'F'), 1)`, where $\hat{\boldsymbol{\Sigma}}_{\textrm{emp}}$ denotes the sample correlation matrix.
 
 ## Estimation of $\boldsymbol{\Sigma}$ when the parameters are unknown
 
@@ -154,7 +155,7 @@ Matrix::image(res_pabl$Sigma_est)
 ```
 
 We can see from this figure that the estimation of $\boldsymbol{\Sigma}$ does not seem to be altered by 
-having to estimate the number of non null values and the rank of the matrix. The Frobenius norm $\|\boldsymbol{\Sigma}-\widehat{\boldsymbol{\Sigma}}\|$ is equal to `r round(norm(as.matrix(Sigma-res$Sigma_est), 'F'), 1)` for the first estimator and to `r round(norm(as.matrix(Sigma-res_pabl$Sigma_est), 'F'), 1)` for the second one.
+having to estimate the number of non null values and the rank of the matrix. The Frobenius norm $\|\boldsymbol{\Sigma}-\hat{\boldsymbol{\Sigma}}\|$ is equal to `r round(norm(as.matrix(Sigma-res$Sigma_est), 'F'), 1)` for the first estimator and to `r round(norm(as.matrix(Sigma-res_pabl$Sigma_est), 'F'), 1)` for the second one.
 
 # Estimator of $\boldsymbol{\Sigma}^{-1/2}$ obtained from an estimator of $\boldsymbol{\Sigma}$
 
@@ -215,15 +216,15 @@ Matrix::image(Sigma_samp[ord, ord])
 Once again, our strategy does not seem to be altered by the permutation of the columns of the original matrix $\boldsymbol{\Sigma}$.
 The Frobenius norm of the error is equal to `r round(norm(as.matrix(Sigma_samp-res_samp$Sigma_est), 'F'), 1)`.
 
-In this situation $\widehat{\boldsymbol{\Sigma}}^{-1/2}$ is still available. The matrix
-$\widehat{\boldsymbol{\Sigma}}^{-1/2}\boldsymbol{\Sigma}\widehat{\boldsymbol{\Sigma}}^{-1/2}$, which is displayed in Figure \ref{fig:fig8},
+In this situation $\hat{\boldsymbol{\Sigma}}^{-1/2}$ is still available. The matrix
+$\hat{\boldsymbol{\Sigma}}^{-1/2}\boldsymbol{\Sigma}\hat{\boldsymbol{\Sigma}}^{-1/2}$, which is displayed in Figure \ref{fig:fig8},
 should be close to the identity matrix: 
 
 ```{r fig8, fig.cap="\\label{fig:fig8}",fig.width=3.5,fig.height=3.5}
 Matrix::image(res_samp$S_inv_12 %*% Sigma_samp %*%res_samp$S_inv_12)
 ```
 
-The associated Frobenius norm $||\widehat{\boldsymbol{\Sigma}}^{-1/2}\boldsymbol{\Sigma}\widehat{\boldsymbol{\Sigma}}^{-1/2}-\textrm{Id}_q||=$ 
+The associated Frobenius norm $||\hat{\boldsymbol{\Sigma}}^{-1/2}\boldsymbol{\Sigma}\hat{\boldsymbol{\Sigma}}^{-1/2}-\textrm{Id}_q||=$ 
 `r round(norm(as.matrix(res_samp$S_inv_12%*%Sigma_samp%*%t(res_samp$S_inv_12)- diag(1,q))),1)`.
 
 
