@@ -26,7 +26,7 @@ devtools::install_github("Marie-PerrotDockes/BlockCov")
 
 
 # Introduction
-
+ 	$\hat{x}$
 This package implements the algorithm proposed by @blc. For further details we refer the reader to this paper.
 We shall consider the following framework. Let  $\boldsymbol{E}_1, \boldsymbol{E}_2,\cdots,\boldsymbol{E}_n$, $n$ zero-mean i.i.d. $q$-dimensional 
 random vectors having a covariance matrix 
@@ -92,7 +92,7 @@ It is displayed in Figure \ref{fig:fig1} and is obtained by using:
 Matrix::image(res_known$Sigma_est)
 ```
 
-The Frobenius norm $\|\boldsymbol{\Sigma}-\hat{\boldsymbol{\Sigma}}\|$ is equal to `r round(norm(as.matrix(Sigma-res_known$Sigma_est), 'F'), 1)`. 
+The Frobenius norm $\|\boldsymbol{\Sigma}-\widehat{\boldsymbol{\Sigma}}\|$ is equal to `r round(norm(as.matrix(Sigma-res_known$Sigma_est), 'F'), 1)`. 
 
 For comparison purpose, the sample correlation matrix is displayed in Figure \ref{fig:fig2}.
 
@@ -100,7 +100,7 @@ For comparison purpose, the sample correlation matrix is displayed in Figure \re
 Matrix::image(Matrix::Matrix(cor(E)))
 ```
 
-The Frobenius norm $\|\boldsymbol{\Sigma}-\hat{\boldsymbol{\Sigma}}_{\textrm{emp}}\|$ is equal to `r round(norm(as.matrix(Sigma-cor(E)), 'F'), 1)`, where $\hat{\boldsymbol{\Sigma}}_{\textrm{emp}}$ denotes the sample correlation matrix.
+The Frobenius norm $\|\boldsymbol{\Sigma}-\widehat{\boldsymbol{\Sigma}}_{\textrm{emp}}\|$ is equal to `r round(norm(as.matrix(Sigma-cor(E)), 'F'), 1)`, where $\widehat{\boldsymbol{\Sigma}}_{\textrm{emp}}$ denotes the sample correlation matrix.
 
 ## Estimation of $\boldsymbol{\Sigma}$ when the parameters are unknown
 
@@ -156,7 +156,7 @@ Matrix::image(res_pabl$Sigma_est)
 ```
 
 We can see from this figure that the estimation of $\boldsymbol{\Sigma}$ does not seem to be altered by 
-having to estimate the number of non null values and the rank of the matrix. The Frobenius norm $\|\boldsymbol{\Sigma}-\hat{\boldsymbol{\Sigma}}\|$ is equal to `r round(norm(as.matrix(Sigma-res$Sigma_est), 'F'), 1)` for the first estimator and to `r round(norm(as.matrix(Sigma-res_pabl$Sigma_est), 'F'), 1)` for the second one.
+having to estimate the number of non null values and the rank of the matrix. The Frobenius norm $\|\boldsymbol{\Sigma}-\widehat{\boldsymbol{\Sigma}}\|$ is equal to `r round(norm(as.matrix(Sigma-res$Sigma_est), 'F'), 1)` for the first estimator and to `r round(norm(as.matrix(Sigma-res_pabl$Sigma_est), 'F'), 1)` for the second one.
 
 # Estimator of $\boldsymbol{\Sigma}^{-1/2}$ obtained from an estimator of $\boldsymbol{\Sigma}$
 
@@ -217,15 +217,15 @@ Matrix::image(Sigma_samp[ord, ord])
 Once again, our strategy does not seem to be altered by the permutation of the columns of the original matrix $\boldsymbol{\Sigma}$.
 The Frobenius norm of the error is equal to `r round(norm(as.matrix(Sigma_samp-res_samp$Sigma_est), 'F'), 1)`.
 
-In this situation $\hat{\boldsymbol{\Sigma}}^{-1/2}$ is still available. The matrix
-$\hat{\boldsymbol{\Sigma}}^{-1/2}\boldsymbol{\Sigma}\hat{\boldsymbol{\Sigma}}^{-1/2}$, which is displayed in Figure \ref{fig:fig8},
+In this situation $\widehat{\boldsymbol{\Sigma}}^{-1/2}$ is still available. The matrix
+$\widehat{\boldsymbol{\Sigma}}^{-1/2}\boldsymbol{\Sigma}\widehat{\boldsymbol{\Sigma}}^{-1/2}$, which is displayed in Figure \ref{fig:fig8},
 should be close to the identity matrix: 
 
 ```{r fig8, fig.cap="\\label{fig:fig8}",fig.width=3.5,fig.height=3.5}
 Matrix::image(res_samp$S_inv_12 %*% Sigma_samp %*%res_samp$S_inv_12)
 ```
 
-The associated Frobenius norm $||\hat{\boldsymbol{\Sigma}}^{-1/2}\boldsymbol{\Sigma}\hat{\boldsymbol{\Sigma}}^{-1/2}-\textrm{Id}_q||=$ 
+The associated Frobenius norm $||\widehat{\boldsymbol{\Sigma}}^{-1/2}\boldsymbol{\Sigma}\widehat{\boldsymbol{\Sigma}}^{-1/2}-\textrm{Id}_q||=$ 
 `r round(norm(as.matrix(res_samp$S_inv_12%*%Sigma_samp%*%t(res_samp$S_inv_12)- diag(1,q))),1)`.
 
 

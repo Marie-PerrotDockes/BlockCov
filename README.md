@@ -6,6 +6,8 @@ Installation
 Introduction
 ============
 
+    $\hat{x}$
+
 This package implements the algorithm proposed by Perrot-Dockès,
 Lévy-Leduc, and Rajjou (2019). For further details we refer the reader
 to this paper. We shall consider the following framework. Let
@@ -18,7 +20,7 @@ where **Σ** is assumed to have a block structure without limiting
 ourselves to diagonal blocks. More precisely, in this paper, we shall
 assume that
 
-**Σ** = **Z** **Z**′+**D**,
+**\^Σ** = **Z** **Z**′+**D**,
 
 where **Z** is a *q* × *k* sparse matrix with *k* ≪ *q*, **Z**′ denotes
 the transpose of the matrix **Z** and **D** is a diagonal matrix such
@@ -78,7 +80,6 @@ and its number of non null values are known.
 
 Our estimator
 *h**a**t***Σ**
-hat**Σ**
  of **Σ** is given by . It is displayed in Figure and is obtained by
 using:
 
@@ -87,8 +88,8 @@ using:
 ![](README_files/figure-markdown_strict/fig1-1.png)
 
 The Frobenius norm
-$\\|\\boldsymbol{\\Sigma}-\\hat{\\boldsymbol{\\Sigma}}\\|$ is equal to
-5.5.
+$\\|\\boldsymbol{\\Sigma}-\\widehat{\\boldsymbol{\\Sigma}}\\|$ is equal
+to 5.5.
 
 For comparison purpose, the sample correlation matrix is displayed in
 Figure .
@@ -98,9 +99,10 @@ Figure .
 ![](README_files/figure-markdown_strict/fig2-1.png)
 
 The Frobenius norm
-$\\|\\boldsymbol{\\Sigma}-\\hat{\\boldsymbol{\\Sigma}}\_{\\textrm{emp}}\\|$
-is equal to 14.5, where $\\hat{\\boldsymbol{\\Sigma}}\_{\\textrm{emp}}$
-denotes the sample correlation matrix.
+$\\|\\boldsymbol{\\Sigma}-\\widehat{\\boldsymbol{\\Sigma}}\_{\\textrm{emp}}\\|$
+is equal to 14.5, where
+$\\widehat{\\boldsymbol{\\Sigma}}\_{\\textrm{emp}}$ denotes the sample
+correlation matrix.
 
 Estimation of **Σ** when the parameters are unknown
 ---------------------------------------------------
@@ -171,8 +173,8 @@ performance of the different strategies.
 We can see from this figure that the estimation of **Σ** does not seem
 to be altered by having to estimate the number of non null values and
 the rank of the matrix. The Frobenius norm
-$\\|\\boldsymbol{\\Sigma}-\\hat{\\boldsymbol{\\Sigma}}\\|$ is equal to
-7.1 for the first estimator and to 7.3 for the second one.
+$\\|\\boldsymbol{\\Sigma}-\\widehat{\\boldsymbol{\\Sigma}}\\|$ is equal
+to 7.1 for the first estimator and to 7.3 for the second one.
 
 Estimator of **Σ**<sup>−1/2</sup> obtained from an estimator of **Σ**
 =====================================================================
@@ -241,9 +243,9 @@ Once again, our strategy does not seem to be altered by the permutation
 of the columns of the original matrix **Σ**. The Frobenius norm of the
 error is equal to 12.4.
 
-In this situation $\\hat{\\boldsymbol{\\Sigma}}^{-1/2}$ is still
+In this situation $\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}$ is still
 available. The matrix
-$\\hat{\\boldsymbol{\\Sigma}}^{-1/2}\\boldsymbol{\\Sigma}\\hat{\\boldsymbol{\\Sigma}}^{-1/2}$,
+$\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}\\boldsymbol{\\Sigma}\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}$,
 which is displayed in Figure , should be close to the identity matrix:
 
     Matrix::image(res_samp$S_inv_12 %*% Sigma_samp %*%res_samp$S_inv_12)
@@ -251,7 +253,7 @@ which is displayed in Figure , should be close to the identity matrix:
 ![](README_files/figure-markdown_strict/fig8-1.png)
 
 The associated Frobenius norm
-$||\\hat{\\boldsymbol{\\Sigma}}^{-1/2}\\boldsymbol{\\Sigma}\\hat{\\boldsymbol{\\Sigma}}^{-1/2}-\\textrm{Id}\_q||=$
+$||\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}\\boldsymbol{\\Sigma}\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}-\\textrm{Id}\_q||=$
 7.8.
 
 All the values of the Frobenius norms are quite close meaning that our
