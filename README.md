@@ -240,17 +240,16 @@ Once again, our strategy does not seem to be altered by the permutation
 of the columns of the original matrix **S**. The Frobenius norm of the
 error is equal to 12.4.
 
-In this situation **Ŝ**^{-1/2} is still
+In this situation **Ŝ**<sup>−1/2</sup> is still
 available. The matrix
-$\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}\\boldsymbol{\\Sigma}\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}$,
-which is displayed in Figure , should be close to the identity matrix:
+**Ŝ**<sup>−1/2</sup> **S** **Ŝ**<sup>−1/2</sup>
+,which is displayed in Figure , should be close to the identity matrix:
 
     Matrix::image(res_samp$S_inv_12 %*% Sigma_samp %*%res_samp$S_inv_12)
 
 ![](README_files/figure-markdown_strict/fig8-1.png)
 
-The associated Frobenius norm
-$||\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}\\boldsymbol{\\Sigma}\\widehat{\\boldsymbol{\\Sigma}}^{-1/2}-\\textrm{Id}\_q||=$
+The associated Frobenius norm | **Ŝ**<sup>−1/2</sup> **S** **Ŝ**<sup>−1/2</sup> - Id|
 7.8.
 
 All the values of the Frobenius norms are quite close meaning that our
