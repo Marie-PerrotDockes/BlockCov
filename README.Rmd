@@ -26,7 +26,7 @@ devtools::install_github("Marie-PerrotDockes/BlockCov")
 
 
 # Introduction
- 	$\hat{x}$
+
 This package implements the algorithm proposed by @blc. For further details we refer the reader to this paper.
 We shall consider the following framework. Let  $\boldsymbol{E}_1, \boldsymbol{E}_2,\cdots,\boldsymbol{E}_n$, $n$ zero-mean i.i.d. $q$-dimensional 
 random vectors having a covariance matrix 
