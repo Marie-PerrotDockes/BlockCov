@@ -38,6 +38,7 @@ More precisely, in this paper, we shall assume that
 $$
 \boldsymbol{\Sigma}=\boldsymbol{Z}\;\boldsymbol{Z}'+\boldsymbol{D},
 $$
+
 where $\boldsymbol{Z}$ is a $q \times k$ sparse matrix with $k\ll q$, $\boldsymbol{Z}'$ denotes the transpose of the matrix $\boldsymbol{Z}$ and $\boldsymbol{D}$
 is a diagonal matrix such that the diagonal terms of $\boldsymbol{\Sigma}$ are equal to one.
 
@@ -84,7 +85,7 @@ nb_nn0 <- sum(Sigma[upper.tri(Sigma, diag = FALSE)] != 0)
 res_known <-  Sigma_estimation(E, k = k, nb_nn0 = nb_nn0)
 ```
 
-Our estimator $\hat{\boldsymbol{\Sigma}}$ of $\boldsymbol{\Sigma}$ is given by \verb|res_known$Sigma_est|.
+Our estimator $$hat{\boldsymbol{\Sigma}}$$ of $\boldsymbol{\Sigma}$ is given by \verb|res_known$Sigma_est|.
 It is displayed in Figure \ref{fig:fig1} and is obtained by using:
 
 ```{r fig1, fig.cap="\\label{fig:fig1}",fig.width=3.5,fig.height=3.5}

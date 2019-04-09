@@ -19,7 +19,8 @@ ourselves to diagonal blocks. More precisely, in this paper, we shall
 assume that
 
 **Σ** = **Z** **Z**′+**D**,
- where **Z** is a *q* × *k* sparse matrix with *k* ≪ *q*, **Z**′ denotes
+
+where **Z** is a *q* × *k* sparse matrix with *k* ≪ *q*, **Z**′ denotes
 the transpose of the matrix **Z** and **D** is a diagonal matrix such
 that the diagonal terms of **Σ** are equal to one.
 
@@ -75,8 +76,11 @@ and its number of non null values are known.
     nb_nn0 <- sum(Sigma[upper.tri(Sigma, diag = FALSE)] != 0)
     res_known <-  Sigma_estimation(E, k = k, nb_nn0 = nb_nn0)
 
-Our estimator $\\hat{\\boldsymbol{\\Sigma}}$ of **Σ** is given by . It
-is displayed in Figure and is obtained by using:
+Our estimator
+*h**a**t***Σ**
+hat**Σ**
+ of **Σ** is given by . It is displayed in Figure and is obtained by
+using:
 
     Matrix::image(res_known$Sigma_est)
 
